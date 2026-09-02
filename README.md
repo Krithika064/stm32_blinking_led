@@ -18,52 +18,11 @@ To interface a digital sensor with an STM32 microcontroller and automatically co
 
 ## Algorithm
 
-1. Start the system.
-2. Initialize the STM32 microcontroller.
-3. Configure `PA0` as a GPIO input.
-4. Configure `PA5` as a GPIO output.
-5. Read the sensor state from `PA0`.
-6. Check whether the sensor output is HIGH.
-7. If the sensor output is HIGH, set `PA5` HIGH to switch ON the LED.
-8. Otherwise, set `PA5` LOW to switch OFF the LED.
-9. Wait for 100 milliseconds.
-10. Repeat the process continuously.
+
 
 ## Program
 
-```c
-#include "main.h"
 
-int main(void)
-{
-    /* Initialize the HAL library */
-    HAL_Init();
-
-    /* Configure the system clock */
-    SystemClock_Config();
-
-    /* Initialize the GPIO pins */
-    MX_GPIO_Init();
-
-    while (1)
-    {
-        /* Read the digital sensor connected to PA0 */
-        if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET)
-        {
-            /* Sensor is HIGH: turn ON the LED */
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-        }
-        else
-        {
-            /* Sensor is LOW: turn OFF the LED */
-            HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-        }
-
-        /* Check the sensor every 100 milliseconds */
-        HAL_Delay(100);
-    }
-}
-```
 
 ## Result
 
